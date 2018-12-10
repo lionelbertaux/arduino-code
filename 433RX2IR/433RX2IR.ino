@@ -9,6 +9,7 @@ void setup() {
     Serial.begin(115200);
     NewRemoteReceiver::init(0, 2, decode);
     Serial.print("Setup OK");
+    pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
@@ -21,11 +22,13 @@ void sendCommand(int level) {
  if (level == 0) {
     mySender.send(NEC,0xff609f, 32);
     Serial.print("OFF");
+    digitalWrite(LED_BUILTIN, LOW);
  } else {
     mySender.send(NEC,0xffe01f, 32);  
     Serial.print("ON");
+    digitalWrite(LED_BUILTIN, HIGH);
  }
-  delay(1000);
+  //delay(1000);
 }
 
 // Callback function is called only when a valid code is received.
